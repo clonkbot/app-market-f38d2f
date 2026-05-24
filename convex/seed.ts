@@ -1,0 +1,115 @@
+import { mutation } from "./_generated/server";
+
+export const seedApps = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const existingApps = await ctx.db.query("apps").collect();
+    if (existingApps.length > 0) return { message: "Already seeded" };
+
+    const sampleApps = [
+      {
+        title: "TaskFlow Pro",
+        description: "Minimalist task management with smart scheduling and team collaboration features.",
+        longDescription: "TaskFlow Pro revolutionizes how teams work together. Features include AI-powered task prioritization, calendar integration, and real-time collaboration.",
+        price: 49,
+        platform: "web" as const,
+        category: "Productivity",
+        imageUrl: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "DevStudio",
+        downloads: 1247,
+        rating: 4.8,
+        featured: true,
+        tags: ["productivity", "tasks", "team"],
+        createdAt: Date.now() - 86400000 * 30,
+        updatedAt: Date.now(),
+      },
+      {
+        title: "Pixel Editor",
+        description: "Professional-grade image editing app with AI enhancement tools.",
+        price: 29,
+        platform: "ios" as const,
+        category: "Design",
+        imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "ArtApps Inc",
+        downloads: 3892,
+        rating: 4.6,
+        featured: true,
+        tags: ["design", "photo", "editing"],
+        createdAt: Date.now() - 86400000 * 45,
+        updatedAt: Date.now(),
+      },
+      {
+        title: "CodeSync",
+        description: "Real-time collaborative code editor with integrated version control.",
+        price: 79,
+        platform: "web" as const,
+        category: "Developer Tools",
+        imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "DevTools Co",
+        downloads: 892,
+        rating: 4.9,
+        featured: true,
+        tags: ["code", "collaboration", "developer"],
+        createdAt: Date.now() - 86400000 * 15,
+        updatedAt: Date.now(),
+      },
+      {
+        title: "FitTrack",
+        description: "Complete fitness tracking with workout plans and nutrition logging.",
+        price: 19,
+        platform: "ios" as const,
+        category: "Health",
+        imageUrl: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "HealthTech",
+        downloads: 5621,
+        rating: 4.7,
+        featured: false,
+        tags: ["fitness", "health", "workout"],
+        createdAt: Date.now() - 86400000 * 60,
+        updatedAt: Date.now(),
+      },
+      {
+        title: "BudgetWise",
+        description: "Smart personal finance manager with AI-powered insights.",
+        price: 39,
+        platform: "both" as const,
+        category: "Finance",
+        imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "FinApps",
+        downloads: 2134,
+        rating: 4.5,
+        featured: false,
+        tags: ["finance", "budget", "money"],
+        createdAt: Date.now() - 86400000 * 20,
+        updatedAt: Date.now(),
+      },
+      {
+        title: "NotesAI",
+        description: "Intelligent note-taking with automatic organization and summarization.",
+        price: 24,
+        platform: "web" as const,
+        category: "Productivity",
+        imageUrl: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&h=600&fit=crop",
+        sellerId: "placeholder" as any,
+        sellerName: "AITools",
+        downloads: 1876,
+        rating: 4.4,
+        featured: false,
+        tags: ["notes", "ai", "productivity"],
+        createdAt: Date.now() - 86400000 * 10,
+        updatedAt: Date.now(),
+      },
+    ];
+
+    for (const app of sampleApps) {
+      await ctx.db.insert("apps", app);
+    }
+
+    return { message: "Seeded successfully" };
+  },
+});
